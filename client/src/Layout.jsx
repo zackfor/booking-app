@@ -3,9 +3,9 @@ import Header from "./Header";
 
 export default function Layout() {
     return (
-        <div className="p-4 flex flex-col min-h-screen">
+        <div className="p-4 grid grid-flow-row min-h-screen">
             <Header />
-            <Outlet/>
+            <Outlet />
         </div>
     );
 }

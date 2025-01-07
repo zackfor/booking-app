@@ -1,11 +1,10 @@
-import Header from "../Header";
-import Layout from "../Layout";
+
 import { Link } from "react-router-dom";
 
 export default function LoginPage() {
     
     return (
-        
+        <>
         <div className="-mt-40 grow flex items-center justify-around">
             <div>
                 <h1 className="text-4xl text-center">Login</h1>
@@ -20,6 +19,8 @@ export default function LoginPage() {
                 </form>
             </div>
         </div>
+
+        </>
         
     );
         

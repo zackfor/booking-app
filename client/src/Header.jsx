@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 
 export default function Header() {
+
     return (
-    <div className=" border-b pb-4 border-gray-300 shadow shadow-gray-200 ">
+      
+    <div className="max-h-fit border-b  pb-4 border-gray-300 shadow-b shadow-gray-200 ">
       <header className=" flex justify-between ">
         <a href="/" className="logo flex items-center">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="orange" className="size-8 hover:fill-orange-500">

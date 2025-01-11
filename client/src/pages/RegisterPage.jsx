@@ -6,12 +6,27 @@ export default function RegisterPage() {
     const [name, setName] = useState();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     function registerUser(ev) {
         ev.preventDefault();
         axios.post('/register', {
             name,
             email,
             password,
+        })
+        .then(response => {
+            console.log("User registered: ", response.data);
+            setSuccessMessage("Account registered successfully!");
+            setErrorMessage('');
+        })
+        .catch(error => {
+            if (error.response) {
+                setErrorMessage(error.response.data.error);
+            } else {
+                setErrorMessage("An error occurred. Please, try again.")
+            }
+            console.error("Error creating account:", error.response ? error.response.data : error.message);
         });
     }
     return (
@@ -40,12 +55,14 @@ export default function RegisterPage() {
                     value={password} 
                     onChange={ev => setPassword(ev.target.value)}/>
 
-                    <button class="login_button" className="bg-orange-300 mt-3 rounded-2xl w-full p-2 text-slate-800">Register</button>
+                    <button  className=" login_button bg-orange-300 mt-3 rounded-2xl w-full p-2 text-slate-800">Register</button>
                     <div className="text-center p-3">
                         Already have an account?
                         <Link className="ml-2 underline text-slate-700 font-semibold" to={"/login"}>Login</Link>
                     </div>
                 </form>
+                {errorMessage && <div className="text-red-500 text-center mt-3">{errorMessage}</div>}
+                {successMessage && <div className="text-green-500 text-center mt-3">{successMessage}</div>}
             </div>
         </div>
     </>    

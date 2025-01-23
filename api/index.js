@@ -55,7 +55,25 @@ app.post("/register", async (req, res) => {
     }
 });
 
+app.post("/login", async (req, res) => {
+    const {email, password} = req.body;
     
+        const userDoc = await User.findOne({email});
+        if (userDoc) {
+            console.log("found")
+            res.json('found');
+        
+         
+        
+        } else {
+            return res.json('not found');
+        
+        }
+    
+    
+        
+    
+});
 
 app.listen(4000, () => {
     console.log("Server is running on port 4000");

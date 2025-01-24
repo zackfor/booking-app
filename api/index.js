@@ -4,12 +4,15 @@ import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import User from './models/User.js';
+import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
 const app = express();
 
 const bcryptSalt = bcrypt.genSaltSync(10);
+
+const jwtSecret = "qweofijasldkqopwenasncqoir";
 
 
 app.use(express.json());
@@ -60,8 +63,16 @@ app.post("/login", async (req, res) => {
     
         const userDoc = await User.findOne({email});
         if (userDoc) {
-            console.log("found")
-            res.json('found');
+            const correctPassword = bcrypt.compareSync(password, userDoc.password);
+            if (correctPassword) {
+                jwt.sign({email:userDoc.email, id:userDoc._id}, jwtSecret, {}, (err, token) => {
+                    if (err) throw err;
+                    res.cookie('token', token).json('pass OK');
+                });
+                
+            } else {
+                res.status(422).json('pass not OK')
+            }
         
          
         

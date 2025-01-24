@@ -1,21 +1,29 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from 'axios';
 
 export default function LoginPage() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [redirect, setRedirect] = useState(false);
     async function handleLoginSubmission(ev) {
         ev.preventDefault();
         try {
             const response = axios.post('/login', {email, password});
-            //alert('Login successful!')
+            alert('Login successful!');
+            setRedirect(true);
         } catch (error) {
-            alert('Login failed' + error.message)
+            alert('Login failed' + error.message);
         }
+
         
+        
+    }
+
+    if (redirect) {
+        return <Navigate to={'/'} />
     }
     
     return (
